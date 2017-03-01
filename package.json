@@ -1,14 +1,15 @@
 {
   "name": "jest-storybook-facade",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Facades for Jest and Storybook so that your Jest tests become stories",
   "files": [
-    "dist"
+    "./jest-facade.js",
+    "./storybook-facade.js"
   ],
   "scripts": {
     "storybook": "start-storybook -p 9001 -c storybook",
     "storybook:build": "rimraf distStoryBook && build-storybook -c storybook -o distStorybook",
-    "build": "babel src -d dist",
+    "build": "babel src -d ./",
     "prepublish": "npm run clean && npm run build",
     "clean": "rimraf dist && mkdir dist",
     "test": "jest"

@@ -1,4 +1,5 @@
 node_modules/
-dist/
+./jest-facade.js
+./storybook-facade.js
 .DS_Store
 npm-debug.log
