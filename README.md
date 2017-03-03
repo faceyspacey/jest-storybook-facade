@@ -1,6 +1,6 @@
 # Jest Storybook Facade
 **Jest Storybook Facade** allows you to return *"stories"* (aka React elements) from your `it` tests to produce
-your React Storybook. Each `describe` block is one *"story"*, and `it` blocks the sub-stories. It's fantastic! Yay! Try it.
+your React Storybook. Each `describe` block is one *"story"*, and its `it` blocks the sub-stories. It's fantastic! Yay! Try it.
 
 
 ## Installation
@@ -13,7 +13,7 @@ import { configure } from '@kadira/storybook'
 ...
 ```
 
-*package.json (or jest config file):*
+*package.json:*
 ```javascript
 "jest": {
     "setupTestFrameworkScriptFile": "jest-storybook-facade/jest-facade.js",
@@ -33,7 +33,7 @@ describe('my test', () => {
     const element = <MyComponent />
 
     expect(element).toMatchSnapshot()
-    return element
+    return element // will become storybook, yay!
   })
 
   it('does something', () => {
