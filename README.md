@@ -60,14 +60,14 @@ And of course it exists on both sides. Here's what it has on it in Jest land:
 global.storybook = {
   action: name => () => console.log('action', name),
   linkTo: (component, story) => () => console.log('linkTo', component, story),
-  withReadme: readme => null, // eslint-disable-line no-unused-vars
+  withReadme: readme => null,
   knobs: {
     text: (label, value) => value,
     boolean: (label, value) => value,
-    number: (label, value, options) => value, // eslint-disable-line no-unused-vars
+    number: (label, value, options) => value,
     color: (label, value) => value,
     object: (label, value) => value,
-    array: (label, value, separator = ',') => value, // eslint-disable-line no-unused-vars
+    array: (label, value, separator = ',') => value,
     select: (label, options, value) => value,
     date: (label, value) => value,
   },
