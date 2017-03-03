@@ -169,6 +169,6 @@ const jest = {
   }
 ```
 
-That all said, when your tests run in Storybook, for mose use-cases you should be fine. If you need a specific enhancement, `git clone` it,
+That all said, when your tests run in Storybook, for most use-cases you should be fine. If you need a specific enhancement, `git clone` it,
 make your enhancement, add your fork to `package.json` instead, and make a pull request. It should be a fairly simple process for a package
 this basic.
