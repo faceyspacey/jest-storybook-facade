@@ -106,7 +106,8 @@ describe('my test', () => {
 The Spec tests displayed in Storybook have one interesting difference from your tests when run by the Jest test runner: 
 
 * you will see your potentially multiple expectations
-be displayed as tests in Storybook. This is because otherwise there would only be one test, since the system is setup to return
+displayed as tests in Storybook. 
+* This is because otherwise there would only be one test, since the system is setup to return
 one story component per test. You can essentially use the Jest command line tool (or perhaps [Wallaby](http://www.wallabyjs.com))
 as your primary test reporter, and then when you use Storybook drill-down even farther. This is especially useful since once a test fails
 you typically only see information about the first expectation that failed, whereas in Storybook you will see info about all of them.  
