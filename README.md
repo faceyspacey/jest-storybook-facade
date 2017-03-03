@@ -173,5 +173,7 @@ const jest = {
 ```
 
 That all said, when your tests run in Storybook, for most use-cases you should be fine. If you need a specific enhancement, `git clone` it,
-make your enhancement, add your fork to `package.json` instead, and make a pull request. It should be a fairly simple process for a package
-this basic.
+make your enhancement, add your fork to `package.json` instead, and make a pull request. It should be a fairly simple process to add what you need 
+for a package this basic. In addition, it should be fairly simple for all of us together get this up to speed, so that we are not worrying about
+what methods are missing in Storybook land. Making this `jest`-only provides us that advantage. Our thinking is that Jest is (or will become) the
+*one true way* for React testing. So lets reduce complexity by focusing on it.
