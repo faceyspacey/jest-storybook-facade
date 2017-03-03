@@ -74,7 +74,7 @@ global.storybook = {
     addWithInfo: () => null,
   },
 ```
-*for this particular package, we urge you to analyze all the code. It's simple and smal. You should know what's available to you, and how to
+*for this particular package, we urge you to analyze all the code. It's simple and small. You should know what's available to you, and how to
 add to it if we missed anything.*
 
 In this case, you can see that several Storybook *addons* such as `knobs` and `withReadme` is available to you, as well as the ability to
@@ -111,3 +111,63 @@ displayed as tests in Storybook.
 one story component per test. You can essentially use the Jest command line tool (or perhaps [Wallaby](http://www.wallabyjs.com))
 as your primary test reporter, and then when you use Storybook drill-down even farther. This is especially useful since once a test fails
 you typically only see information about the first expectation that failed, whereas in Storybook you will see info about all of them.  
+
+
+## Help us Improve `storybook-facade.js`
+
+The mocks in `storybook-facade`.js could be improved. We are missing a few `expect` methods from Jest, and the `jest.fn()` mock tool
+could be better. Basically they should be copied from the Jest source. When I started this, I copied the initial way the *specifications` addon
+did this, but since have decided to make this `jest`-only. So that means we should use the precise tools from Jest. 
+
+Until we replace these things with code from the *Jest* repository, basically here's what you need to do:
+
+```javascript
+const expectMethods = [
+  'toBeAn',
+  'toBeFalsy',
+  'toBeFewerThan',
+  'toBeMoreThan',
+  'toBeTruthy',
+  'toContain',
+  'toContainKey',
+  ...
+
+expectReal.extend({
+  toMatchSnapshot() {
+    expectReal.assert(
+      true,
+      'expected a snapshot',
+      this.actual,
+    )
+    return this
+  },
+  addAnotherMethodHere...
+})
+```
+
+
+*and this should be improved*:
+```javascript
+const jest = {
+  fn: (implementation) => {
+    implementation = implementation || function jestFn() {}
+
+    implementation.mock = {
+      calls: [[], [], [], [], []],
+      instances: [{}, {}, {}, {}],
+      mockClear() {},
+      mockReset() {},
+      mockImplementation: () => implementation,
+      mockImplementationOnce: () => implementation,
+      mockReturnThis: () => implementation,
+      mockReturnValue: () => implementation,
+      mockReturnValueOnce: () => implementation,
+    }
+
+    return implementation
+  }
+```
+
+That all said, when your tests run in Storybook, for mose use-cases you should be fine. If you need a specific enhancement, `git clone` it,
+make your enhancement, add your fork to `package.json` instead, and make a pull request. It should be a fairly simple process for a package
+this basic.
