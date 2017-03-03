@@ -47,7 +47,7 @@ describe('my test', () => {
 ## How It Works
 
 * In Storybook land, globals for `describe`, `it`, `expect`, etc are created by the `storybook-facade.js` file you import. The
-Jest environment is essentially mirrored. Under the hood, it creates your stories and spec tests using the `specifications` addon. 
+Jest environment is essentially mirrored. Under the hood, it creates your stories and spec tests using the `specifications` addon.
 
 * In Jest land, a few minor tweaks are made by `jest-facade.js`: For one, you can now return react elements without penality (typically
 undefined or a promise is expected as the return). In addition, `describe`, `it`, `jest`, etc, you have one more global: `storybook`.
@@ -100,3 +100,11 @@ describe('my test', () => {
   })
 })
 ```
+
+** Storybook Specifications
+
+The Spec tests displayed in Storybook have one interesting difference though: you will see your potentially multiple expectations
+be displayed as tests in Storybook. This is because otherwise there would only be one test, since the system is setup to return
+one story component per test. You can essentially use the Jest command line tool (or perhaps [Wallaby](http://www.wallabyjs.com))
+as your primary test reporter, and then when you use Storybook drill-down even farther. This is especially useful since once a test fails
+you typically only see information about the first expectation that failed, whereas in Storybook you will see info about all of them.  
