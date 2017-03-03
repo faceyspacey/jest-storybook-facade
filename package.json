@@ -11,7 +11,7 @@
     "storybook:build": "rimraf distStoryBook && build-storybook -c storybook -o distStorybook",
     "build": "babel src -d ./",
     "prepublish": "npm run clean && npm run build",
-    "clean": "rimraf dist && mkdir dist",
+    "clean": "rm storybook-facade.js && rm jest-facade.js",
     "test": "jest"
   },
   "repository": {
