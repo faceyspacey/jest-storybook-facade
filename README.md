@@ -36,13 +36,13 @@ describe('my test', () => {
     const tree = renderer.create(element).toJSON()
 
     expect(tree).toMatchSnapshot()
-    return element // will become storybook, yay!
+    return element // will become a story in Storybook, yay!
   })
 
   it('does something', () => {
     const value = myFunction(1, 2)
     expect(value).toEqual(3)
-    // if you don't return anything, no storybook is displayed
+    // if you don't return anything, no story is displayed
   })
 })
 ```
