@@ -130,6 +130,7 @@ const expectMethods = [
   'toBeTruthy',
   'toContain',
   'toContainKey',
+  'addAnotherMethodHere',
   ...
 
 expectReal.extend({
