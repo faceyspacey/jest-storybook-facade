@@ -122,7 +122,7 @@ const expectMethods = [
 ]
 
 
-const expectMethods = [
+const expectNotMethods = [
   'toNotBeAn',
   'toNotContain',
   'toNotContainKey',

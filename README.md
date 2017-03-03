@@ -25,14 +25,17 @@ import { configure } from '@kadira/storybook'
 
 ```javascript
 import React from 'react'
+import renderer from 'react-test-renderer'
+
 import MyComponent from '../src/MyComponent'
 import add from '../src/add'
 
 describe('my test', () => {
   it('does something', () => {
     const element = <MyComponent />
+    const tree = renderer.create(element).toJSON()
 
-    expect(element).toMatchSnapshot()
+    expect(tree).toMatchSnapshot()
     return element // will become storybook, yay!
   })
 
@@ -88,6 +91,8 @@ Here's how an example of how to use it:
 
 ```javascript
 import React from 'react'
+import renderer from 'react-test-renderer'
+
 import readme from '../README.md'
 const { color } = storybook.knobs
 
@@ -97,8 +102,9 @@ describe('my test', () => {
   it('does something', () => {
     const color = color('my color', 'blue')
     const element = <MyComponent color={color} />
+    const tree = renderer.create(element).toJSON()
 
-    expect(element).toMatchSnapshot()
+    expect(tree).toMatchSnapshot()
     return element
   })
 })
