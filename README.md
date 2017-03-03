@@ -43,6 +43,7 @@ describe('my test', () => {
   })
 })
 ```
+Yay, it looks just like my regular tests! I can trust this won't break or become a nuisance to my all-import test harness!!!
 
 ## How It Works
 
