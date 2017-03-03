@@ -59,10 +59,18 @@ const expect = (received) => {
     })
   }
 
-  return expectMethods.reduce((expectObject, method) => {
+  const methods = expectMethods.reduce((expectObject, method) => {
     expectObject[method] = callExpect.bind(null, method)
     return expectObject
   }, {})
+
+  methods.not = expectNotMethods.reduce((expectObject, method) => {
+    const notMethod = method.replace('to', 'toNot')
+    expectObject[method] = callExpect.bind(null, notMethod)
+    return expectObject
+  }, {})
+
+  return methods
 }
 
 const formatReceived = (received, method) => {
@@ -89,13 +97,6 @@ const expectMethods = [
   'toContain',
   'toContainKey',
   'toContainKeys',
-  'toNotBeAn',
-  'toNotContain',
-  'toNotContainKey',
-  'toNotContainKeys',
-  'toNotInclude',
-  'toNotIncludeKey',
-  'toNotIncludeKeys',
   'withArgs',
   'withContext',
   'toBe',
@@ -115,6 +116,20 @@ const expectMethods = [
   'toIncludeKey',
   'toIncludeKeys',
   'toMatch',
+  'toThrow',
+  'toMatchSnapshot',
+  'toBeCalled',
+]
+
+
+const expectMethods = [
+  'toNotBeAn',
+  'toNotContain',
+  'toNotContainKey',
+  'toNotContainKeys',
+  'toNotInclude',
+  'toNotIncludeKey',
+  'toNotIncludeKeys',
   'toNotBe',
   'toNotBeA',
   'toNotEqual',
@@ -122,9 +137,6 @@ const expectMethods = [
   'toNotHaveBeenCalled',
   'toNotMatch',
   'toNotThrow',
-  'toThrow',
-  'toMatchSnapshot',
-  'toBeCalled',
 ]
 
 expectReal.extend({
@@ -152,8 +164,26 @@ const fdescribe = (name, tests) => describe(name, tests)
 const fit = (name, test) => it(name, test)
 const beforeAll = before
 const afterAll = after
+
+
 const jest = {
-  fn: (implementation) => function jestFn() {}, // eslint-disable-line
+  fn: (implementation) => {
+    implementation = implementation || function jestFn() {}
+
+    implementation.mock = {
+      calls: [[], [], [], [], []],
+      instances: [{}, {}, {}, {}],
+      mockClear() {},
+      mockReset() {},
+      mockImplementation: () => implementation,
+      mockImplementationOnce: () => implementation,
+      mockReturnThis: () => implementation,
+      mockReturnValue: () => implementation,
+      mockReturnValueOnce: () => implementation,
+    }
+
+    return implementation
+  }, // eslint-disable-line
   clearAllTimers() {},
   disableAutomock() {},
   enableAutomock() {},
