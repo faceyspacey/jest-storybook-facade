@@ -47,7 +47,7 @@ describe('my test', () => {
 ## How It Works
 
 * In Storybook land, globals for `describe`, `it`, `expect`, etc are created by the `storybook-facade.js` file you import. The
-Jest environment is essentially mirrored. 
+Jest environment is essentially mirrored. Under the hood, it creates your stories and spec tests using the `specifications` addon. 
 
 * In Jest land, a few minor tweaks are made by `jest-facade.js`: For one, you can now return react elements without penality (typically
 undefined or a promise is expected as the return). In addition, `describe`, `it`, `jest`, etc, you have one more global: `storybook`.
