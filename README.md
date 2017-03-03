@@ -116,7 +116,7 @@ you typically only see information about the first expectation that failed, wher
 ## Help us Improve `storybook-facade.js`
 
 The mocks in `storybook-facade`.js could be improved. We are missing a few `expect` methods from Jest, and the `jest.fn()` mock tool
-could be better. Basically they should be copied from the Jest source. When I started this, I copied the initial way the *specifications` addon
+could be better. Basically they should be copied from the Jest source. When I started this, I copied the initial way the *specifications* addon
 did this, but since have decided to make this `jest`-only. So that means we should use the precise tools from Jest. 
 
 Until we replace these things with code from the *Jest* repository, basically here's what you need to do:
