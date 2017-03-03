@@ -45,6 +45,8 @@ describe('my test', () => {
 ```
 Yay, it looks just like my regular tests! I can trust this won't break or become a nuisance to my all-import test harness!!!
 
+*...and in fact, you can get started today with your existing tests, just by returning react elements!*
+
 ## How It Works
 
 * In Storybook land, globals for `describe`, `it`, `expect`, etc are created by the `storybook-facade.js` file you import. The
