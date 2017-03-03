@@ -82,7 +82,7 @@ add to it if we missed anything.*
 
 In this case, you can see that several Storybook *addons* such as `knobs` and `withReadme` is available to you, as well as the ability to
 `addDecorator`. In Storybook land, the real ones will of course be used. In general, the goal is to not obstruct the standard appearance
-of your tests as--well--"tests," but our assumption is that after you get used to it, you will want some of the Storybook features back.
+of your tests, but our assumption is that after you get used to it, you will want some of the Storybook features back.
 
 Here's how an example of how to use it:
 
