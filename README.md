@@ -53,8 +53,8 @@ Yay, it looks just like my regular tests! I can trust this won't break or become
 Jest environment is essentially mirrored. Under the hood, it creates your stories and spec tests using the `specifications` addon.
 
 * In Jest land, a few minor tweaks are made by `jest-facade.js`: For one, you can now return react elements without penality (typically
-undefined or a promise is expected as the return). In addition, `describe`, `it`, `jest`, etc, you have one more global: `storybook`.
-And of course it exists on both sides. Here's what it has on it:
+undefined or a promise is expected as the return). In addition to `describe`, `it`, `jest`, etc, you have one more global: `storybook`.
+And of course it exists on both sides. Here's what it has on it in Jest land:
 
 ```javascript
 global.storybook = {
