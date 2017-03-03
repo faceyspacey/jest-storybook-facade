@@ -101,7 +101,7 @@ describe('my test', () => {
 })
 ```
 
-** Storybook Specifications
+## Storybook Specifications
 
 The Spec tests displayed in Storybook have one interesting difference though: you will see your potentially multiple expectations
 be displayed as tests in Storybook. This is because otherwise there would only be one test, since the system is setup to return
