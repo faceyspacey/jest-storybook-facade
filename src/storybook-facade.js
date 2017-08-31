@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { storiesOf, action, linkTo } from '@kadira/storybook'
-import withReadme from 'storybook-readme/with-readme'
-import * as knobs from '@kadira/storybook-addon-knobs'
+import { storiesOf, action, linkTo } from '@storybook/react'
+// import withReadme from 'storybook-readme/with-readme'
+import * as knobs from '@storybook/addon-knobs'
 
 import {
   specs,
@@ -23,7 +23,7 @@ const storybook = {
   stories: {},
   action,
   linkTo,
-  withReadme,
+  // withReadme,
   knobs,
 }
 
