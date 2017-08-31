@@ -1,23 +1,22 @@
-import React from 'react'
+import React from 'react';
 
-import { storiesOf, action, linkTo } from '@storybook/react'
+import { storiesOf, action, linkTo } from '@storybook/react';
 // import withReadme from 'storybook-readme/with-readme'
-import * as knobs from '@storybook/addon-knobs'
+import * as knobs from '@storybook/addon-knobs';
 
 import {
   specs,
   beforeEach,
   afterEach,
   before, // not supported in jest, use beforeAll
-  after,  // not supported in jest, use afterAll
+  after, // not supported in jest, use afterAll
   xit,
   xdescribe,
   describe as describeReal,
   it as itReal,
-} from 'storybook-addon-specifications'
+} from 'storybook-addon-specifications';
 
-import expectReal from 'expect'
-
+import expectReal from 'expect';
 
 const storybook = {
   stories: {},
@@ -25,68 +24,66 @@ const storybook = {
   linkTo,
   // withReadme,
   knobs,
-}
+};
 
 const describe = (name, tests) => {
-  storybook.stories = storiesOf(name, module)
-  tests()
-}
+  storybook.stories = storiesOf(name, module);
+  tests();
+};
 
 const it = (name, test) => {
-  const stories = storybook.stories
-  const add = stories.addWithInfo || stories.add
+  const stories = storybook.stories;
+  const add = stories.addWithInfo || stories.add;
 
-  add.call(stories, name, () => {
-    let story
+  let story;
 
-    specs(() => describeReal(name, () => {
-      story = test()
-    }))
+  specs(() =>
+    describeReal(name, () => {
+      story = test();
+    }),
+  );
 
-    return story || <div>NO STORY AVAILABLE FOR THIS TEST</div>
-  })
-}
+  if (story) {
+    add.call(stories, name, () => story);
+  }
+};
 
-
-const expect = (received) => {
+const expect = received => {
   const callExpect = (method, ...expectedArgs) => {
-    const expectedValue = expectedArgs[0] || ''
-    const receivedFormatted = formatReceived(received, method)
-    const name = `expects ${receivedFormatted} ${method} ${expectedValue}`
+    const expectedValue = expectedArgs[0] || '';
+    const receivedFormatted = formatReceived(received, method);
+    const name = `expects ${receivedFormatted} ${method} ${expectedValue}`;
 
     itReal(name, () => {
-      expectReal(received)[method](...expectedArgs)
-    })
-  }
+      expectReal(received)[method](...expectedArgs);
+    });
+  };
 
   const methods = expectMethods.reduce((expectObject, method) => {
-    expectObject[method] = callExpect.bind(null, method)
-    return expectObject
-  }, {})
+    expectObject[method] = callExpect.bind(null, method);
+    return expectObject;
+  }, {});
 
   methods.not = expectNotMethods.reduce((expectObject, method) => {
-    const notMethod = method.replace('to', 'toNot')
-    expectObject[method] = callExpect.bind(null, notMethod)
-    return expectObject
-  }, {})
+    const notMethod = method.replace('to', 'toNot');
+    expectObject[method] = callExpect.bind(null, notMethod);
+    return expectObject;
+  }, {});
 
-  return methods
-}
+  return methods;
+};
 
 const formatReceived = (received, method) => {
   if (method === 'toMatchSnapshot') {
-    return 'component or value'
-  }
-  else if (typeof received === 'function') {
-    return received.toString()
-  }
-  else if (typeof received === 'object') {
-    return JSON.stringify(received, null, 1)
+    return 'component or value';
+  } else if (typeof received === 'function') {
+    return received.toString();
+  } else if (typeof received === 'object') {
+    return JSON.stringify(received, null, 1);
   }
 
-  return received
-}
-
+  return received;
+};
 
 const expectMethods = [
   'toBeAn',
@@ -119,8 +116,7 @@ const expectMethods = [
   'toThrow',
   'toMatchSnapshot',
   'toBeCalled',
-]
-
+];
 
 const expectNotMethods = [
   'toNotBeAn',
@@ -137,38 +133,28 @@ const expectNotMethods = [
   'toNotHaveBeenCalled',
   'toNotMatch',
   'toNotThrow',
-]
+];
 
 expectReal.extend({
   toMatchSnapshot() {
-    expectReal.assert(
-      true,
-      'expected a snapshot',
-      this.actual,
-    )
-    return this
+    expectReal.assert(true, 'expected a snapshot', this.actual);
+    return this;
   },
   toBeCalled() {
-    expectReal.assert(
-      true,
-      'expected to be called',
-      this.actual,
-    )
-    return this
+    expectReal.assert(true, 'expected to be called', this.actual);
+    return this;
   },
-})
-
+});
 
 // this should actually perform the `only` function at some point
-const fdescribe = (name, tests) => describe(name, tests)
-const fit = (name, test) => it(name, test)
-const beforeAll = before
-const afterAll = after
-
+const fdescribe = (name, tests) => describe(name, tests);
+const fit = (name, test) => it(name, test);
+const beforeAll = before;
+const afterAll = after;
 
 const jest = {
-  fn: (implementation) => {
-    implementation = implementation || function jestFn() {}
+  fn: implementation => {
+    implementation = implementation || function jestFn() {};
 
     implementation.mock = {
       calls: [[], [], [], [], []],
@@ -180,9 +166,9 @@ const jest = {
       mockReturnThis: () => implementation,
       mockReturnValue: () => implementation,
       mockReturnValueOnce: () => implementation,
-    }
+    };
 
-    return implementation
+    return implementation;
   }, // eslint-disable-line
   clearAllTimers() {},
   disableAutomock() {},
@@ -202,18 +188,19 @@ const jest = {
   useFakeTimers() {},
   useRealTimers() {},
   spyOn(object, methodName) {}, // eslint-disable-line
-}
+};
 
-window.storybook = storybook
-window.jest = jest
-window.expect = expect
-window.describe = describe
-window.xdescribe = xdescribe
-window.fdescribe = fdescribe
-window.it = it
-window.xit = xit
-window.fit = fit
-window.beforeEach = beforeEach
-window.afterEach = afterEach
-window.beforeAll = beforeAll
-window.afterAll = afterAll
+window.storybook = storybook;
+window.jest = jest;
+window.expect = expect;
+window.describe = describe;
+window.xdescribe = xdescribe;
+window.fdescribe = fdescribe;
+window.it = it;
+window.xit = xit;
+window.fit = fit;
+window.beforeEach = beforeEach;
+window.afterEach = afterEach;
+window.beforeAll = beforeAll;
+window.afterAll = afterAll;
+
