@@ -1,20 +1,39 @@
-const itReal = it
+import renderer from 'react-test-renderer';
+import { isElement } from 'react-dom/test-utils';
+
+const itReal = it;
+const isPromise = val => typeof val === 'object' && val.next;
 
 it = (name, test) => {
-  itReal(name, () => { // eslint-disable-line consistent-return
-    const ret = test()
+  //  console.log(isElement(test));
 
-    // storybook `it` allows for returning the story component,
-    // but undefined or promises is expected in jest
-    if (isPromise(ret)) {
-      return ret
+  if (isElement(test)) {
+    itReal(name, () => {
+      const tree = renderer.create(test).toJSON();
+
+      expect(tree).toMatchSnapshot();
+
+      if (process.env.STORYBOOK_GIT_BRANCH) {
+        return test; // will become a story in Storybook, yay!
+      }
+    });
+  } else {
+    if (typeof test !== 'function') {
+      return;
     }
-  })
-}
 
-const isPromise = val =>
-  typeof val === 'object' && val.next
+    itReal(name, () => {
+      // eslint-disable-line consistent-return
+      const ret = test();
 
+      // storybook `it` allows for returning the story component,
+      // but undefined or promises is expected in jest
+      if (isPromise(ret)) {
+        return ret;
+      }
+    });
+  }
+};
 
 global.storybook = {
   action: name => () => console.log('action', name),
@@ -35,4 +54,5 @@ global.storybook = {
     add: () => null,
     addWithInfo: () => null,
   },
-}
+};
+

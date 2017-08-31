@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { storiesOf, action, linkTo } from '@storybook/react';
 // import withReadme from 'storybook-readme/with-readme'
+import { isElement } from 'react-dom/test-utils';
 import * as knobs from '@storybook/addon-knobs';
 
 import {
@@ -37,9 +36,18 @@ const it = (name, test) => {
 
   let story;
 
+  // jest doesn't seem to handle "/" in testnames
+  // Slashes are used in storybook to build a hierachy of stories
+  // we simply take the last part as action-name
+  const testname = name.substring(name.lastIndexOf('/') + 1, name.length);
+
   specs(() =>
-    describeReal(name, () => {
-      story = test();
+    describeReal(testname, () => {
+      if (isElement(test)) {
+        story = test;
+      } else {
+        story = test();
+      }
     }),
   );
 
