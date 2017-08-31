@@ -1,6 +1,6 @@
 {
   "name": "jest-storybook-facade",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Facades for Jest and Storybook so that your Jest tests become stories",
   "files": [
     "jest-facade.js",
